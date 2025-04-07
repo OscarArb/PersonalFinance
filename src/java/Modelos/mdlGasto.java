@@ -26,11 +26,12 @@ public class mdlGasto extends Conexion {
         int res = 0;
         try {
             this.conectar();
-            String sql = "INSERT INTO `gastos`(`detalle`, `valor`, `fecha`) VALUES (?,?,?)";
+            String sql = "INSERT INTO `gastos`(`detalle`, `valor`, `fecha`, `idUser`) VALUES (?,?,?,?)";
             PreparedStatement pre = this.getCon().prepareStatement(sql);
             pre.setString(1, c.getDetalle());
             pre.setString(2, c.getValor());
             pre.setString(3, c.getFecha());
+            pre.setString(4, c.getIdUser());
 
             res = pre.executeUpdate();
         } catch (SQLException e) {
@@ -42,11 +43,11 @@ public class mdlGasto extends Conexion {
         return res;
     }
 
-    public ArrayList<clsObjeto> mostrarClientes() {
+    public ArrayList<clsObjeto> mostrarClientes(String usr) {
         ArrayList<clsObjeto> lista = new ArrayList<>();
         try {
             this.conectar();
-            String sql = "SELECT * FROM gastos";
+            String sql = "SELECT * FROM gastos WHERE idUser = '"+usr+"'";
             PreparedStatement pre = this.getCon().prepareStatement(sql);
             ResultSet rs;
             rs = pre.executeQuery();

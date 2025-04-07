@@ -1,3 +1,4 @@
+<%@page import="Modelos.inicio"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.util.ArrayList" %>
 <%@page import="Clases.clsObjeto" %>
@@ -16,6 +17,7 @@
         <%!
             //CategoriaDAO categoriaDAO = new CategoriaDAO();
             mdlGasto GastoDAO = new mdlGasto();
+            inicio inicio = new inicio();
         %>
         <div class="container">
             <%--  <%@include file="../template/menu.jsp" %>--%>
@@ -40,7 +42,8 @@
                     </thead>
                     <tbody>
                         <%
-                            ArrayList<clsObjeto> listaCliente = GastoDAO.mostrarClientes();
+                            String idUser = inicio.usuario();
+                            ArrayList<clsObjeto> listaCliente = GastoDAO.mostrarClientes(idUser);
                             for (clsObjeto elem : listaCliente) {
                         %>
                         <tr>

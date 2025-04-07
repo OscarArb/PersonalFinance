@@ -1,5 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
--<!DOCTYPE html>
+
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
@@ -11,6 +11,7 @@
 	<link rel="stylesheet" href="css/principal.css">
     
 	<title>Personal Finance V-2.2</title>
+        <link rel="shortcut icon" href="img/icon.ico"> 
 </head>
 <body>
 	<!-- SIDEBAR -->

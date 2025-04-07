@@ -26,6 +26,7 @@ public class Conexion {
     public void conectar(){
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
+            //con = DriverManager.getConnection("jdbc:mysql://node224366-env-0375145.sp1.br.saveincloud.net.br/personal_finance", "root", "TTApex24107");//base de datos en la web
             con = DriverManager.getConnection("jdbc:mysql://localhost/personal_finance", "root", "");
         } catch (Exception e) {
             System.out.println("Error al conectar a la base de datos "+e.getMessage());

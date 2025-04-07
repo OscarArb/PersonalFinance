@@ -1,9 +1,12 @@
 package Controlador;
 
 import Clases.clsObjeto;
+import Modelos.inicio;
 import Modelos.mdlGasto;
 import Modelos.mdlIngreso;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,6 +18,7 @@ public class Control extends HttpServlet {
 
     int ide;
     int agregado = 0;
+    inicio inicio = new inicio();
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -30,7 +34,10 @@ public class Control extends HttpServlet {
             if (menu.equals("Principal")) {
                 request.getRequestDispatcher("inicio.jsp").forward(request, response);
             }
+            
             if (menu.equals("Ingreso")) {
+                String idUser = inicio.usuario();
+                System.out.println("Soy el usuario ejecutado en proceso INGRESOS: " + idUser);
                 request.getRequestDispatcher("ingreso.jsp").forward(request, response);
 
                 switch (accion) {
@@ -57,7 +64,8 @@ public class Control extends HttpServlet {
                         String detalle = request.getParameter("txtNombre");
                         String valor = request.getParameter("txtValor");
                         String fechapago = request.getParameter("txtFecha");
-                        clsObjeto ActualizarI = new clsObjeto(id, detalle, fechapago, valor);
+
+                        clsObjeto ActualizarI = new clsObjeto(id, detalle, fechapago, valor, idUser);
                         int estado;
                         mdlIngreso IngresoAct = new mdlIngreso();
                         estado = IngresoAct.Actualizar(ActualizarI);
@@ -67,7 +75,8 @@ public class Control extends HttpServlet {
                 }
             }
             if (menu.equals("Gasto")) {
-
+                String idUser = inicio.usuario();
+                System.out.println("Soy el usuario ejecutado en proceso Gastos: " + idUser);
                 request.getRequestDispatcher("gasto.jsp").forward(request, response);
                 switch (accion) {
                     case "Delete":
@@ -85,7 +94,7 @@ public class Control extends HttpServlet {
                         String detallePagado = request.getParameter("txtNombre");
                         String valorPagado = request.getParameter("txtValor");
                         String fechapagoPagado = request.getParameter("txtFecha");
-                        clsObjeto gPagado = new clsObjeto(idPagado, detallePagado, fechapagoPagado, valorPagado);
+                        clsObjeto gPagado = new clsObjeto(idPagado, detallePagado, fechapagoPagado, valorPagado, idUser);
                         int es;
                         mdlGasto gastoPagado = new mdlGasto();
                         es = gastoPagado.GenerarPago(gPagado);
@@ -94,7 +103,7 @@ public class Control extends HttpServlet {
                         String detalle = request.getParameter("txtNombre");
                         String valor = request.getParameter("txtValor");
                         String fechapago = request.getParameter("txtFecha");
-                        clsObjeto gActualizar = new clsObjeto(id, detalle, fechapago, valor);
+                        clsObjeto gActualizar = new clsObjeto(id, detalle, fechapago, valor, idUser);
                         int estado;
                         mdlGasto gastoActualizar = new mdlGasto();
                         estado = gastoActualizar.GenerarAbono(gActualizar);
@@ -104,7 +113,7 @@ public class Control extends HttpServlet {
                         String detalleUpdate = request.getParameter("txtNombre");
                         String valorUpdate = request.getParameter("txtValor");
                         String fechapagoUpdate = request.getParameter("txtFecha");
-                        clsObjeto gUpdate = new clsObjeto(idUpdate, detalleUpdate, fechapagoUpdate, valorUpdate);
+                        clsObjeto gUpdate = new clsObjeto(idUpdate, detalleUpdate, fechapagoUpdate, valorUpdate, idUser);
                         int estadoUpdate;
                         mdlGasto gastoUpdate = new mdlGasto();
                         estado = gastoUpdate.Actualizar(gUpdate);
@@ -118,14 +127,14 @@ public class Control extends HttpServlet {
                 request.getRequestDispatcher("Graficas.jsp").forward(request, response);
             }
             if (menu.equals("Registros")) {
+                String idUser = inicio.usuario();
+                System.out.println("Soy el usuario ejecutado en proceso REGISTROS: " + idUser);
                 if (agregado > 0) {
                     request.setAttribute("em", "Prueba");
 
                 }
-                System.out.println("Valor de agregado antes de registros: " + agregado);
                 request.getRequestDispatcher("registros.jsp").forward(request, response);
                 switch (accion) {
-
                     case "Agregar":
                         //Recibo valores desde formulario registros.jsp
                         String opcion = request.getParameter("txtCodigo");
@@ -134,13 +143,13 @@ public class Control extends HttpServlet {
                         String valordepago = request.getParameter("txtArea");
                         if (opcion.equals("Gasto")) {
                             agregado = 0;
-                            clsObjeto CrearGasto = new clsObjeto(opcion, detalleA, fechadepago, valordepago);
+                            clsObjeto CrearGasto = new clsObjeto(opcion, detalleA, fechadepago, valordepago, idUser);
                             mdlGasto gastoCrear = new mdlGasto();
                             agregado = gastoCrear.Crear(CrearGasto);
 
                         } else if (opcion.equals("Ingreso")) {
                             agregado = 0;
-                            clsObjeto CrearIngreso = new clsObjeto(opcion, detalleA, fechadepago, valordepago);
+                            clsObjeto CrearIngreso = new clsObjeto(opcion, detalleA, fechadepago, valordepago, idUser);
                             mdlIngreso IngresoCrear = new mdlIngreso();
                             agregado = IngresoCrear.Crear(CrearIngreso);
                             request.setAttribute("em", "PruebaDos");

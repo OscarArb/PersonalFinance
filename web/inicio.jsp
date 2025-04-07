@@ -75,7 +75,8 @@
                     </thead>
                     <tbody>
                         <%
-                            ArrayList<clsObjeto> listaInicia = inicio.tablaInicio();
+                            String idUser = inicio.usuario();
+                            ArrayList<clsObjeto> listaInicia = inicio.tablaInicio(idUser);
 
                             for (clsObjeto elem : listaInicia) {
 

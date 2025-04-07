@@ -37,21 +37,25 @@
         </div>
 
         <div class="form-box register">
-            <form action="#">
+            <form action="Validar" method="POST">
                 <h1>Registrar</h1>
                 <div class="input-box">
-                    <input type="text" placeholder="Username" required>
+                    <input type="text" placeholder="Nombres" name="newNombre" required>
                     <i class='bx bxs-user'></i>
                 </div>
                 <div class="input-box">
-                    <input type="email" placeholder="Email" required>
+                    <input type="number" placeholder="Telefono" name="newTel" required>
+                    <i class='bx bxs-phone'></i>
+                </div>
+                <div class="input-box">
+                    <input type="text" placeholder="Usuario" name="newUser" required>
                     <i class='bx bxs-envelope' ></i>
                 </div>
                 <div class="input-box">
-                    <input type="password" placeholder="Password" required>
+                    <input type="password" placeholder="Password" name="newPas" required>
                     <i class='bx bxs-lock-alt' ></i>
                 </div>
-                <button type="submit" class="btn">Register</button>
+                <button type="submit" class="btn" name="accion" value="Registrar">Register</button>
                 <p>o registrar con</p>
                 <div class="social-icons">
                     <a href="#"><i class='bx bxl-google' ></i></a>

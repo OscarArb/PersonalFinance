@@ -4,6 +4,7 @@
     Author     : Oscar Arb
 --%>
 
+<%@page import="Modelos.inicio"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <%@page import="java.util.ArrayList" %>
@@ -23,6 +24,7 @@
         <%!
             //CategoriaDAO categoriaDAO = new CategoriaDAO();
             mdlIngreso IngresoDAO = new mdlIngreso();
+            inicio inicio = new inicio();
         %>
         <div class="container">
             <%--  <%@include file="../template/menu.jsp" %>--%>
@@ -46,8 +48,8 @@
                     <th>Acciones</th>
                     </thead>
                     <tbody>
-                        <%
-                            ArrayList<clsObjeto> listaCliente = IngresoDAO.mostrarIngresos();
+                        <%String idUser = inicio.usuario();
+                            ArrayList<clsObjeto> listaCliente = IngresoDAO.mostrarIngresos(idUser);
 
                             for (clsObjeto elem : listaCliente) {
 
